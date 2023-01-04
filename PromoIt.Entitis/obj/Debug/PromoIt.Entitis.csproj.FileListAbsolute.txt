@@ -1,0 +1,2 @@
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entitis.csproj.AssemblyReference.cache
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entitis.csproj.CoreCompileInputs.cache

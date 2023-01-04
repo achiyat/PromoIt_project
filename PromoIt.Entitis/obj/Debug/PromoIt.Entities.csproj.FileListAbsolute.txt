@@ -1,0 +1,11 @@
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.Entitis.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.Entitis.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.DAL.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.Model.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.DAL.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\bin\Debug\PromoIt.Model.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entities.csproj.AssemblyReference.cache
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entities.csproj.CoreCompileInputs.cache
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entities.csproj.CopyComplete
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entitis.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Entitis\obj\Debug\PromoIt.Entitis.pdb

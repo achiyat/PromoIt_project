@@ -1,0 +1,13 @@
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\obj\Debug\PromoIt.Data.SQL.csproj.AssemblyReference.cache
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\obj\Debug\PromoIt.Data.SQL.csproj.CoreCompileInputs.cache
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Data.SQL.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Data.SQL.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Entitis.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Model.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.DAL.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Entitis.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.Model.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\bin\Debug\PromoIt.DAL.pdb
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\obj\Debug\PromoIt.Data.SQL.csproj.CopyComplete
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\obj\Debug\PromoIt.Data.SQL.dll
+C:\Users\achiy\source\repos\PromoIt\PromoIt.Data.SQL\obj\Debug\PromoIt.Data.SQL.pdb
