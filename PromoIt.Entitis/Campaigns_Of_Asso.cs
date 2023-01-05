@@ -4,18 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace PromoIt.Entitis
 {
-    public class Activists
+    public class Campaigns_Of_Asso
     {
         public Hashtable hash = new Hashtable();
-        public Activist Activ = new Activist();
+        public CampaignOfAsso Campaign = new CampaignOfAsso();
 
         // ייבוא נתונים - 1
         // Gives a command to DAL to create a connection with SQL for Import
@@ -33,33 +31,32 @@ namespace PromoIt.Entitis
             hash.Clear();
             while (reader.Read())
             {
-                Activist newActivist = new Activist();
-                newActivist.IDactivist = reader.GetInt32(reader.GetOrdinal("IDactivist"));
-                newActivist.NameActivist = reader.GetString(reader.GetOrdinal("NameActivist"));
-                newActivist.EmailActivist = reader.GetString(reader.GetOrdinal("EmailActivist"));
-                newActivist.AddressActivist = reader.GetString(reader.GetOrdinal("AddressActivist"));
-                newActivist.phoneActivist = reader.GetString(reader.GetOrdinal("phoneActivist"));
-                newActivist.SumOfMoney = reader.GetInt32(reader.GetOrdinal("SumOfMoney"));
-
+                CampaignOfAsso newCampaign = new CampaignOfAsso();
+                newCampaign.IDcampaign = reader.GetInt32(reader.GetOrdinal("IDcampaign"));
+                newCampaign.NameCampaign = reader.GetString(reader.GetOrdinal("NameCampaign"));
+                newCampaign.IDassn = reader.GetInt32(reader.GetOrdinal("IDassn"));
+                newCampaign.NameAssn = reader.GetString(reader.GetOrdinal("NameAssn"));
+                newCampaign.linkURL = reader.GetString(reader.GetOrdinal("linkURL"));
+                newCampaign.Hashtag = reader.GetString(reader.GetOrdinal("Hashtag"));
 
                 //Cheking If Hashtable contains the key
-                if (hash.ContainsKey(newActivist.IDactivist))
+                if (hash.ContainsKey(newCampaign.NameCampaign))
                 {
                     //key already exists
                 }
                 else
                 {
                     //Filling a hashtable
-                    hash.Add(newActivist.IDactivist, newActivist);
+                    hash.Add(newCampaign.NameCampaign, newCampaign);
                 }
             }
         }
 
         // ייצוא נתונים - 1
         // Gives a command to DAL to create a connection with SQL for Export
-        public void ExportFromDB(string SqlQuery, Activist Class)
+        public void ExportFromDB(string SqlQuery, CampaignOfAsso Class)
         {
-            Activ = Class;
+            Campaign = Class;
             DAL.PromoItQuery.InputToDB(SqlQuery, changeTheDB);
         }
 
@@ -67,12 +64,12 @@ namespace PromoIt.Entitis
         // Exports the data from the server into the database
         public void changeTheDB(SqlCommand command)
         {
-            command.Parameters.AddWithValue("@ID", Activ.IDactivist);
-            command.Parameters.AddWithValue("@Name", Activ.NameActivist);
-            command.Parameters.AddWithValue("@Email", Activ.EmailActivist);
-            command.Parameters.AddWithValue("@Address", Activ.AddressActivist);
-            command.Parameters.AddWithValue("@Phone", Activ.phoneActivist);
-            command.Parameters.AddWithValue("@Money", Activ.SumOfMoney);
+            command.Parameters.AddWithValue("@ID", Campaign.IDcampaign);
+            command.Parameters.AddWithValue("@Name", Campaign.NameCampaign);
+            command.Parameters.AddWithValue("@IDAssn", Campaign.IDassn);
+            command.Parameters.AddWithValue("@NameAssn", Campaign.NameAssn);
+            command.Parameters.AddWithValue("@Link", Campaign.linkURL);
+            command.Parameters.AddWithValue("@Hashtag", Campaign.Hashtag);
             command.ExecuteNonQuery();
         }
     }

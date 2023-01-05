@@ -106,7 +106,7 @@ namespace PromoIt.UI
             Asso.EmailAssn = textEmailAssn.Text;
             // לבדוק משתנים בפקודות
             // command add
-            MainManager.Instance.Associations.ExportFromDB("insert into Associations values(@ID,@Name,@Email,@link,@Hashtag);", Asso);
+            MainManager.Instance.Associations.ExportFromDB("insert into Associations values(@ID,@Name,@Email,@link,@Hashtag)", Asso);
 
             // Clear input
             Clear();

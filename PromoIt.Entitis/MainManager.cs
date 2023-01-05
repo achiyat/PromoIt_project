@@ -18,6 +18,7 @@ namespace PromoIt.Entities
         public Associations Associations = new Associations();
         public Activists Activists = new Activists();
         public Messages Messages = new Messages();
+        public Campaigns_Of_Asso CampaignsAsso = new Campaigns_Of_Asso();
 
         //public Products Products = new Products();
     }

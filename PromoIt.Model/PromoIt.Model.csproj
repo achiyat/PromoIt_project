@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Activist.cs" />
     <Compile Include="Association.cs" />
+    <Compile Include="CampaignOfAsso.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

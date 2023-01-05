@@ -14,6 +14,7 @@ using System.Net;
 using PromoIt.Entities;
 using PromoIt.Model;
 using PromoIt.Data.SQL;
+using System.Xml.Linq;
 
 namespace PromoIt.MicroServer
 {
@@ -30,6 +31,7 @@ namespace PromoIt.MicroServer
             Company company = new Company();
             Association Asso = new Association();
             Message message = new Message();
+            CampaignOfAsso campaignAsso = new CampaignOfAsso();
 
             string responseMessage;
             string requestBody;
@@ -44,21 +46,31 @@ namespace PromoIt.MicroServer
                 case "Get":
                     if (IdNumber == null)
                     {
-                        switch (User)
+                        if (User== "User")
                         {
-                            case "Activist":
-                                hash = (Hashtable)MainManager.Instance.Activists.ImportData("select * from Activists");
-                                break;
-                            case "Company":
-                                hash = (Hashtable)MainManager.Instance.Activists.ImportData("select * from companies");
-                                break;
-                            case "Association":
-                                hash = (Hashtable)MainManager.Instance.Activists.ImportData("select * from Associations");
-                                break;
-
-                                responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
-                                return new OkObjectResult(responseMessage);
+                            hash = (Hashtable)MainManager.Instance.CampaignsAsso.ImportData("select * from campaignAsso");
+                            responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
+                            return new OkObjectResult(responseMessage);
                         }
+                        else
+                        {
+                            switch (User)
+                            {
+                                case "Activist":
+                                    hash = (Hashtable)MainManager.Instance.Activists.ImportData("select * from Activists");
+                                    break;
+                                case "Company":
+                                    hash = (Hashtable)MainManager.Instance.Companies.ImportData("select * from companies");
+                                    break;
+                                case "Association":
+                                    hash = (Hashtable)MainManager.Instance.Associations.ImportData("select * from Associations");
+                                    break;
+
+                                    responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
+                                    return new OkObjectResult(responseMessage);
+                            }
+                        }
+
                     }
                     else
                     {
@@ -88,23 +100,44 @@ namespace PromoIt.MicroServer
                     {
                         case "Activist":
                             //SumOfMoney
+                            //Activ.SumOfMoney = 0;
+                            requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                             Activ = System.Text.Json.JsonSerializer.Deserialize<Activist>(req.Body);
-                            Query = "insert into";
+                            Query = "insert into Activists values(@ID,@Name,@Email,@Address,@Phone,@Money)";
                             MainManager.Instance.Activists.ExportFromDB(Query, Activ);
 
                             break;
                         case "Company":
                             company = System.Text.Json.JsonSerializer.Deserialize<Company>(req.Body);
-                            Query = "insert into messages values(@ID,@Name,@Owner,@Phone,@Email)";
+                            Query = "insert into companies values(@ID,@Name,@Owner,@Email,@Phone)";
                             MainManager.Instance.Companies.ExportFromDB(Query, company);
                             break;
                         case "Association":
                             // לבדוק משתנים בפקודות
                             Asso = System.Text.Json.JsonSerializer.Deserialize<Association>(req.Body);
-                            Query = "insert into";
+                            Query = "insert into Associations values(@ID,@Name,@Email)";
                             MainManager.Instance.Associations.ExportFromDB(Query, Asso);
                             break;
                     }
+                    break;
+
+                case "Campaign":
+                    campaignAsso = System.Text.Json.JsonSerializer.Deserialize<CampaignOfAsso>(req.Body);
+                    Query = "insert into campaignAsso values(@Name,@IDAssn,@NameAssn,@Link,@Hashtag)";
+                    MainManager.Instance.CampaignsAsso.ExportFromDB(Query, campaignAsso);
+                    break;
+
+                case "message":
+                    Message data = new Message();
+                    data = System.Text.Json.JsonSerializer.Deserialize<Message>(req.Body);
+                    Query = "insert into messages values(@ID,@Name,@Phone,@Email,@Message)";
+                    MainManager.Instance.Messages.ExportFromDB(Query, data);
+                    break;
+
+                case "GetList":
+                    Query = "select * from campaignAsso where IDassn = " + IdNumber;
+                    hash = (Hashtable)MainManager.Instance.Activists.ImportData(Query);
+                    responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
                     break;
 
                 case "Update":
@@ -153,12 +186,7 @@ namespace PromoIt.MicroServer
                     }
                     break;
 
-                case "message":
-                    Message data = new Message();
-                    data = System.Text.Json.JsonSerializer.Deserialize<Message>(req.Body);
-                    Query = "insert into messages values(@ID,@Name,@Email,@Phone,@Message)";
-                    MainManager.Instance.Messages.ExportFromDB(Query, data);
-                    break;
+
 
                 default:
                     return new BadRequestObjectResult("Failed Request");
