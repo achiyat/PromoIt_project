@@ -36,20 +36,28 @@ namespace PromoIt.Entitis
                 newCampaign.NameCampaign = reader.GetString(reader.GetOrdinal("NameCampaign"));
                 newCampaign.IDassn = reader.GetInt32(reader.GetOrdinal("IDassn"));
                 newCampaign.NameAssn = reader.GetString(reader.GetOrdinal("NameAssn"));
+
+                newCampaign.EmailAssn = reader.GetString(reader.GetOrdinal("EmailAssn"));
+                newCampaign.Fundraising = reader.GetInt32(reader.GetOrdinal("Fundraising"));
+
+
                 newCampaign.linkURL = reader.GetString(reader.GetOrdinal("linkURL"));
                 newCampaign.Hashtag = reader.GetString(reader.GetOrdinal("Hashtag"));
+                newCampaign.SelectedCampaign = reader.GetBoolean(reader.GetOrdinal("SelectedCampaign"));
+                newCampaign.StatusCampaign = reader.GetBoolean(reader.GetOrdinal("StatusCampaign"));
 
                 //Cheking If Hashtable contains the key
-                if (hash.ContainsKey(newCampaign.NameCampaign))
+                if (hash.ContainsKey(newCampaign.IDcampaign))
                 {
                     //key already exists
                 }
                 else
                 {
                     //Filling a hashtable
-                    hash.Add(newCampaign.NameCampaign, newCampaign);
+                    hash.Add(newCampaign.IDcampaign, newCampaign);
                 }
             }
+            int a = 0;
         }
 
         // ייצוא נתונים - 1
@@ -64,12 +72,19 @@ namespace PromoIt.Entitis
         // Exports the data from the server into the database
         public void changeTheDB(SqlCommand command)
         {
+            //"@ID,@Name,@IDAssn,@NameAssn,@Email,@Fund,@Link,@Hashtag,@Selected,@Status"
             command.Parameters.AddWithValue("@ID", Campaign.IDcampaign);
             command.Parameters.AddWithValue("@Name", Campaign.NameCampaign);
             command.Parameters.AddWithValue("@IDAssn", Campaign.IDassn);
             command.Parameters.AddWithValue("@NameAssn", Campaign.NameAssn);
+
+            command.Parameters.AddWithValue("@Email", Campaign.EmailAssn);
+            command.Parameters.AddWithValue("@Fund", Campaign.Fundraising);
+
             command.Parameters.AddWithValue("@Link", Campaign.linkURL);
-            command.Parameters.AddWithValue("@Hashtag", Campaign.Hashtag);
+            command.Parameters.AddWithValue("@Hashtag", Campaign.Hashtag); 
+            command.Parameters.AddWithValue("@Selected", Campaign.SelectedCampaign);
+            command.Parameters.AddWithValue("@Status", Campaign.StatusCampaign);
             command.ExecuteNonQuery();
         }
     }

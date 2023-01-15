@@ -39,8 +39,6 @@ namespace PromoIt.Entitis
                 newActivist.EmailActivist = reader.GetString(reader.GetOrdinal("EmailActivist"));
                 newActivist.AddressActivist = reader.GetString(reader.GetOrdinal("AddressActivist"));
                 newActivist.phoneActivist = reader.GetString(reader.GetOrdinal("phoneActivist"));
-                newActivist.SumOfMoney = reader.GetInt32(reader.GetOrdinal("SumOfMoney"));
-
 
                 //Cheking If Hashtable contains the key
                 if (hash.ContainsKey(newActivist.IDactivist))
@@ -72,7 +70,6 @@ namespace PromoIt.Entitis
             command.Parameters.AddWithValue("@Email", Activ.EmailActivist);
             command.Parameters.AddWithValue("@Address", Activ.AddressActivist);
             command.Parameters.AddWithValue("@Phone", Activ.phoneActivist);
-            command.Parameters.AddWithValue("@Money", Activ.SumOfMoney);
             command.ExecuteNonQuery();
         }
     }

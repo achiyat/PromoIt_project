@@ -37,14 +37,14 @@ namespace PromoIt.Entitis
                 newAssociation.EmailAssn = reader.GetString(reader.GetOrdinal("EmailAssn"));
 
                 //Cheking If Hashtable contains the key
-                if (hash.ContainsKey(newAssociation.IDassn))
+                if (hash.ContainsKey(newAssociation.EmailAssn))
                 {
                     //key already exists
                 }
                 else
                 {
                     //Filling a hashtable
-                    hash.Add(newAssociation.IDassn, newAssociation);
+                    hash.Add(newAssociation.EmailAssn, newAssociation);
                 }
             }
         }

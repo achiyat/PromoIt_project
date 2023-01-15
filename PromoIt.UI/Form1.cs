@@ -40,7 +40,7 @@ namespace PromoIt.UI
             company.IDCompany = int.Parse(textIDcom.Text);
             company.NameCompany = textNameCom.Text;
             company.OwnerCompany = textOwnerCom.Text;
-            company.Phone = textPhoneCom.Text;
+            //company.Phone = textPhoneCom.Text;
             company.EmailCompany = textEmailCom.Text;
 
             // command add
@@ -67,7 +67,7 @@ namespace PromoIt.UI
             {
                 textNameCom.Text  = company.NameCompany;
                 textOwnerCom.Text = company.OwnerCompany;
-                textPhoneCom.Text = company.Phone;
+                //textPhoneCom.Text = company.Phone;
                 textEmailCom.Text = company.EmailCompany;
             }
         }
@@ -85,7 +85,7 @@ namespace PromoIt.UI
             company.IDCompany = int.Parse(textIDcom.Text);
             company.NameCompany = textNameCom.Text;
             company.OwnerCompany = textOwnerCom.Text;
-            company.Phone = textPhoneCom.Text;
+            //company.Phone = textPhoneCom.Text;
             company.EmailCompany = textEmailCom.Text;
 
             MainManager.Instance.Companies.ExportFromDB("update companies set NameCompany=@Name,OwnerCompany=@Owner,Phone=@Phone,EmailCompany=@Email where IDCompany = @ID", company);

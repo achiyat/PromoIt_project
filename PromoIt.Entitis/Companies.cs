@@ -37,18 +37,18 @@ namespace PromoIt.Entities
                 newcompany.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 newcompany.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 newcompany.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                newcompany.Phone = reader.GetString(reader.GetOrdinal("Phone"));
+                newcompany.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 newcompany.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
 
                 //Cheking If Hashtable contains the key
-                if (hash.ContainsKey(newcompany.IDCompany))
+                if (hash.ContainsKey(newcompany.EmailCompany))
                 {
                     //key already exists
                 }
                 else
                 {
                     //Filling a hashtable
-                    hash.Add(newcompany.IDCompany, newcompany);
+                    hash.Add(newcompany.EmailCompany, newcompany);
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace PromoIt.Entities
             command.Parameters.AddWithValue("@ID", company.IDCompany);
             command.Parameters.AddWithValue("@Name", company.NameCompany);
             command.Parameters.AddWithValue("@Owner", company.OwnerCompany);
-            command.Parameters.AddWithValue("@Phone", company.Phone);
+            command.Parameters.AddWithValue("@Phone", company.PhoneCompany);
             command.Parameters.AddWithValue("@Email", company.EmailCompany);
             command.ExecuteNonQuery();
         }

@@ -13,6 +13,5 @@ namespace PromoIt.Model
         public string EmailActivist { get; set; }
         public string AddressActivist { get; set; }
         public string phoneActivist { get; set; }
-        public int SumOfMoney { get; set; }
     }
 }
