@@ -31,7 +31,8 @@ namespace PromoIt.Model
         public int IDCompany { get; set; }
         public string NameCompany { get; set; }
         public string OwnerCompany { get; set; } // בעלים
-        public string PhoneCompany { get; set; }
         public string EmailCompany { get; set; }
+        public string PhoneCompany { get; set; }
+
     }
 }

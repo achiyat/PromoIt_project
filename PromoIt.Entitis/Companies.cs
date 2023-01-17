@@ -37,8 +37,9 @@ namespace PromoIt.Entities
                 newcompany.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 newcompany.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 newcompany.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                newcompany.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 newcompany.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
+                newcompany.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
+
 
                 //Cheking If Hashtable contains the key
                 if (hash.ContainsKey(newcompany.EmailCompany))
@@ -68,8 +69,9 @@ namespace PromoIt.Entities
             command.Parameters.AddWithValue("@ID", company.IDCompany);
             command.Parameters.AddWithValue("@Name", company.NameCompany);
             command.Parameters.AddWithValue("@Owner", company.OwnerCompany);
-            command.Parameters.AddWithValue("@Phone", company.PhoneCompany);
             command.Parameters.AddWithValue("@Email", company.EmailCompany);
+            command.Parameters.AddWithValue("@Phone", company.PhoneCompany);
+
             command.ExecuteNonQuery();
         }
 

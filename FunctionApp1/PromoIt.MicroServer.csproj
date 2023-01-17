@@ -4,10 +4,12 @@
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetOpenAuth.AspNet" Version="4.3.4.13329" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.1" />
     <PackageReference Include="RestSharp" Version="108.0.3" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PromoIt.Data.SQL\PromoIt.Data.SQL.csproj" />

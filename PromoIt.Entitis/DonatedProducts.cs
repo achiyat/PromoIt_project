@@ -33,6 +33,7 @@ namespace PromoIt.Entitis
             hash.Clear();
             while (reader.Read())
             {
+
                 DonatedProduct Donated = new DonatedProduct();
                 Donated.IDProduct = reader.GetInt32(reader.GetOrdinal("IDProduct"));
                 Donated.ProductName = reader.GetString(reader.GetOrdinal("ProductName"));
@@ -59,8 +60,9 @@ namespace PromoIt.Entitis
                 Donated.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 Donated.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 Donated.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                Donated.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 Donated.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
+                Donated.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
+
 
                 //Cheking If Hashtable contains the key
                 if (hash.ContainsKey(Donated.IDProduct))
@@ -87,7 +89,7 @@ namespace PromoIt.Entitis
         // Exports the data from the server into the database
         public void changeTheDB(SqlCommand command)
         {
-            //@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp
+            //@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone
             command.Parameters.AddWithValue("@ID", DonatedProduct.IDProduct);
             command.Parameters.AddWithValue("@Name", DonatedProduct.ProductName);
             command.Parameters.AddWithValue("@Price", DonatedProduct.Price);
@@ -111,8 +113,9 @@ namespace PromoIt.Entitis
             command.Parameters.AddWithValue("@IDCom", DonatedProduct.IDCompany);
             command.Parameters.AddWithValue("@NameCom", DonatedProduct.NameCompany);
             command.Parameters.AddWithValue("@Owner", DonatedProduct.OwnerCompany);
-            command.Parameters.AddWithValue("@Phone", DonatedProduct.PhoneCompany);
             command.Parameters.AddWithValue("@EmailComp", DonatedProduct.EmailCompany);
+            command.Parameters.AddWithValue("@Phone", DonatedProduct.PhoneCompany);
+
             command.ExecuteNonQuery();
         }
     }

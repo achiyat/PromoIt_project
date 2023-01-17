@@ -60,8 +60,9 @@ namespace PromoIt.Entitis
                 GetShipping.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 GetShipping.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 GetShipping.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                GetShipping.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 GetShipping.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
+                GetShipping.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
+
 
                 GetShipping.IDactivist = reader.GetInt32(reader.GetOrdinal("IDactivist"));
                 GetShipping.NameActivist = reader.GetString(reader.GetOrdinal("NameActivist"));
@@ -95,7 +96,7 @@ namespace PromoIt.Entitis
         // Exports the data from the server into the database
         public void changeTheDB(SqlCommand command)
         {
-            //@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv,@Money
+            //@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv,@Money
             command.Parameters.AddWithValue("@ID", shipping.IDShipments);
             command.Parameters.AddWithValue("@donated", shipping.donated);
             command.Parameters.AddWithValue("@bought", shipping.bought);
@@ -123,8 +124,9 @@ namespace PromoIt.Entitis
             command.Parameters.AddWithValue("@IDCom", shipping.IDCompany);
             command.Parameters.AddWithValue("@NameCom", shipping.NameCompany);
             command.Parameters.AddWithValue("@Owner", shipping.OwnerCompany);
-            command.Parameters.AddWithValue("@Phone", shipping.PhoneCompany);
             command.Parameters.AddWithValue("@EmailComp", shipping.EmailCompany);
+            command.Parameters.AddWithValue("@Phone", shipping.PhoneCompany);
+
 
             command.Parameters.AddWithValue("@IDActiv", shipping.IDactivist);
             command.Parameters.AddWithValue("@NameActiv", shipping.NameActivist);

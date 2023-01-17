@@ -13,13 +13,13 @@ using static System.Collections.Specialized.BitVector32;
 using System.Net;
 using PromoIt.Entities;
 using PromoIt.Model;
-using PromoIt.Data.SQL;
 using System.Xml.Linq;
 using System.Diagnostics;
 using System.Security.Policy;
 using PromoIt.Entitis;
 using RestSharp;
 using Newtonsoft.Json.Linq;
+using Tweetinvi;
 
 namespace PromoIt.MicroServer
 {
@@ -86,13 +86,13 @@ namespace PromoIt.MicroServer
 
                         case "AddShipments":
                             shipping = System.Text.Json.JsonSerializer.Deserialize<Shipping>(req.Body);
-                            Query = "insert into Shipments values(@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv,@Money) \r\n update DonatedProducts set SelectedProduct= @SelectedProd where IDProduct = @IDProd";
+                            Query = "insert into Shipments values(@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv,@Money) \r\n update DonatedProducts set SelectedProduct= @SelectedProd where IDProduct = @IDProd";
                             MainManager.Instance.Shipments.ExportFromDB(Query, shipping);
                             break;
 
                         case "BuyProduct":
                             shipping = System.Text.Json.JsonSerializer.Deserialize<Shipping>(req.Body);
-                            Query = "update Shipments set bought=@bought,donated=@donated where IDShipments = @ID\r\nupdate Shipments set Inventory=@Inventory,Fundraising=@Fund where IDactivist = @IDActiv and IDcampaign = @IDcamp\r\nupdate Shipments set MoneyActivist=@Money where IDactivist = @IDActiv\r\nupdate DonatedProducts set Inventory=@Inventory,Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignCompany set Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignAsso set Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignActivist set Fundraising=@Fund where IDactivist = @IDActiv and IDcampaign = @IDcamp\r\nupdate campaignActivist set MoneyActivist=@Money where IDactivist = @IDActiv";
+                            Query = "update Shipments set bought=@bought,donated=@donated where IDShipments = @ID\r\n update Shipments set Inventory=@Inventory where IDProduct = @IDProd\r\nupdate Shipments set Fundraising=@Fund where IDactivist = @IDActiv and IDcampaign = @IDcamp \r\nupdate Shipments set MoneyActivist=@Money where IDactivist = @IDActiv\r\nupdate DonatedProducts set Inventory=@Inventory,Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignCompany set Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignAsso set Fundraising=@Fund where IDcampaign = @IDcamp\r\nupdate campaignActivist set Fundraising=@Fund where IDactivist = @IDActiv and IDcampaign = @IDcamp\r\nupdate campaignActivist set MoneyActivist=@Money where IDactivist = @IDActiv";
                             MainManager.Instance.Shipments.ExportFromDB(Query, shipping);
                             break;
 
@@ -132,7 +132,7 @@ namespace PromoIt.MicroServer
 
                         case "Update":
                             company = System.Text.Json.JsonSerializer.Deserialize<Company>(req.Body);
-                            Query = "update companies set NameCompany=@Name,OwnerCompany=@Owner,Phone=@Phone,EmailCompany=@Email where IDCompany = @ID";
+                            Query = "update companies set NameCompany=@Name,OwnerCompany=@Owner,EmailCompany=@Email,Phone=@Phone where IDCompany = @ID";
                             MainManager.Instance.Companies.ExportFromDB(Query, company);
                             break;
 
@@ -145,14 +145,14 @@ namespace PromoIt.MicroServer
                         case "Upload":
                             requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                             product = System.Text.Json.JsonSerializer.Deserialize<DonatedProduct>(requestBody);
-                            Query = "insert into DonatedProducts values(@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp)";
+                            Query = "insert into DonatedProducts values(@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone) \r\n insert into campaignCompany values(@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone) \r\nupdate campaignAsso set NameCampaign=@Namecamp,linkURL=@link,Hashtag=@Hashtag,SelectedCampaign=@Selected where IDcampaign = @IDcamp\r\nupdate campaignCompany set NameCampaign=@Namecamp,linkURL=@link,Hashtag=@Hashtag,SelectedCampaign=@Selected where IDcampaign = @IDcamp\r\nupdate DonatedProducts set NameCampaign=@Namecamp,linkURL=@link,Hashtag=@Hashtag,SelectedCampaign=@Selected where IDcampaign = @IDcamp\r\nupdate campaignActivist set NameCampaign=@Namecamp,linkURL=@link,Hashtag=@Hashtag,SelectedCampaign=@Selected where IDcampaign = @IDcamp\r\nupdate Shipments set NameCampaign=@Namecamp,linkURL=@link,Hashtag=@Hashtag,SelectedCampaign=@Selected where IDcampaign = @IDcamp";
                             MainManager.Instance.DonatedProducts.ExportFromDB(Query, product);
                             break;
 
                         case "campaign-Company":
                             requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                             campaignCompany = System.Text.Json.JsonSerializer.Deserialize<CampaignOfCompany>(requestBody);
-                            Query = "insert into campaignCompany values(@ID,@Name,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@Status,@IDCom,@NameCom,@Owner,@Phone,@EmailComp)";
+                            Query = "insert into campaignCompany values(@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@EmailComp,@Phone)";
                             MainManager.Instance.CampaignCompany.ExportFromDB(Query, campaignCompany);
                             break;
 
@@ -271,6 +271,12 @@ namespace PromoIt.MicroServer
                             return new OkObjectResult(responseMessage);
                             break;
 
+                        case "GetCampaignsById":
+                            hash = (Hashtable)MainManager.Instance.CampaignsAsso.ImportData("select * from campaignAsso where IDassn = " + IdNumber);
+                            responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
+                            return new OkObjectResult(responseMessage);
+                            break;
+
                         case "Get-Campaigns-Activist":
                             hash = (Hashtable)MainManager.Instance.CampaignActivists.ImportData("select * from campaignActivist where IDactivist="+ IdNumber);
                             responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
@@ -283,8 +289,20 @@ namespace PromoIt.MicroServer
                             return new OkObjectResult(responseMessage);
                             break;
 
+                        case "GetCampaignsCompany":
+                            hash = (Hashtable)MainManager.Instance.CampaignCompany.ImportData("select * from campaignAsso c \r\ninner join campaignCompany ca\r\non c.IDcampaign = ca.IDcampaign\r\nwhere ca.IDCompany =" + IdNumber);
+                            responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
+                            return new OkObjectResult(responseMessage);
+                            break;
+
                         case "Get-Product-Activist":
                             hash = (Hashtable)MainManager.Instance.InnerJoins.ImportData("select * from DonatedProducts d inner join campaignActivist c on c.IDcampaign = d.IDcampaign where c.IDactivist=" + IdNumber + "and c.IDcampaign="+ IdNumber1 + "and d.StatusProduct=1 and d.StatusCampaign=1");
+                            responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
+                            return new OkObjectResult(responseMessage);
+                            break;
+
+                        case "Get-Reports":
+                            hash = (Hashtable)MainManager.Instance.InnerJoins.ImportData("select * from DonatedProducts d inner join campaignActivist c on c.IDcampaign = d.IDcampaign where c.IDactivist=" + IdNumber + "and c.IDcampaign=" + IdNumber1);
                             responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
                             return new OkObjectResult(responseMessage);
                             break;
@@ -300,7 +318,7 @@ namespace PromoIt.MicroServer
                             responseMessage = System.Text.Json.JsonSerializer.Serialize(hash);
                             return new OkObjectResult(responseMessage);
                             break;
-/*
+
                         case "Roles":
                             var urlGetRoles = $"https://dev-1r64p6wfhjnlz8dm.us.auth0.com/api/v2/users/{IdNumber}/roles";
                             var client = new RestClient(urlGetRoles);
@@ -321,16 +339,37 @@ namespace PromoIt.MicroServer
                                 return new NotFoundResult();
                             }
                             break;
-                    }
-                    break;*/
 
-                    /*
-                case "chooseProduct":
-                    requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                    shipping = System.Text.Json.JsonSerializer.Deserialize<Shipping>(requestBody);
-                    Query = "insert into Shipments values(@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Money,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv)";
-                    MainManager.Instance.Shipments.ExportFromDB(Query, shipping);
-                    break; */
+                        case "Twitter":
+
+                            string ACCESS_TOKEN_SECRET = "zWYr2eQ49yCEXqWH32wfWCqd3EySmRuj3eL6SQnMt0vQ4";
+                            string ACCESS_TOKEN = "1615001371740078083-781ej3ShdsjnimWiAOI0dK0D1oKG7s";
+                            string CONSUMER_SECRET = "KjyfljVBpSpdkjg1FNKpn0pXxGQDwCEwve1gNHITjJxeBZC3ky";
+                            string CONSUMER_KEY = "w27WBoPcfFGwzgHWHjFQdfD1B";
+
+                            var userClient = new TwitterClient(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+
+                            var user = await userClient.Users.GetAuthenticatedUserAsync();
+                            Console.WriteLine(user);
+
+                            var tweet = await userClient.Tweets.PublishTweetAsync("Hello tweetinvi world!");
+                            Console.WriteLine("You published the tweet : " + tweet);
+
+
+                            break;
+                    }
+                    break;
+
+
+
+
+                /*
+            case "chooseProduct":
+                requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+                shipping = System.Text.Json.JsonSerializer.Deserialize<Shipping>(requestBody);
+                Query = "insert into Shipments values(@donated,@bought,@IDProd,@Name,@Price,@Inventory,@SelectedProd,@StatusProd,@IDcamp,@Namecamp,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Money,@Link,@Hashtag,@Selected,@StatusCamp,@IDCom,@NameCom,@Owner,@Phone,@EmailComp,@IDActiv,@NameActiv,@EmailActiv,@Address,@PhoneActiv)";
+                MainManager.Instance.Shipments.ExportFromDB(Query, shipping);
+                break; */
 
                 default:
                     return new BadRequestObjectResult("Failed Request");

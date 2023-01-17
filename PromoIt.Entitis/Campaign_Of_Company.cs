@@ -50,8 +50,9 @@ namespace PromoIt.Entitis
                 newCampaign.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 newCampaign.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 newCampaign.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                newCampaign.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 newCampaign.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
+                newCampaign.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
+
 
                 //Cheking If Hashtable contains the key
                 if (hash.ContainsKey(newCampaign.NameCampaign))
@@ -79,7 +80,7 @@ namespace PromoIt.Entitis
         // Exports the data from the server into the database
         public void changeTheDB(SqlCommand command)
         {
-            //@ID,@Name,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@Status,@IDCom,@NameCom,@Owner,@Phone,@EmailComp
+            //@ID,@Name,@IDAssn,@NameAssn,@EmailAssn,@Fund,@Link,@Hashtag,@Selected,@Status,@IDCom,@NameCom,@Owner,@EmailComp,@Phone
             command.Parameters.AddWithValue("@ID", campaign.IDcampaign);
             command.Parameters.AddWithValue("@Name", campaign.NameCampaign);
             command.Parameters.AddWithValue("@IDAssn", campaign.IDassn);
@@ -96,8 +97,9 @@ namespace PromoIt.Entitis
             command.Parameters.AddWithValue("@IDCom", campaign.IDCompany);
             command.Parameters.AddWithValue("@NameCom", campaign.NameCompany);
             command.Parameters.AddWithValue("@Owner", campaign.OwnerCompany);
-            command.Parameters.AddWithValue("@Phone", campaign.PhoneCompany);
             command.Parameters.AddWithValue("@EmailComp", campaign.EmailCompany);
+            command.Parameters.AddWithValue("@Phone", campaign.PhoneCompany);
+
             command.ExecuteNonQuery();
         }
     }

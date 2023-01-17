@@ -55,8 +55,9 @@ namespace PromoIt.Entitis
                 InnerJoin.IDCompany = reader.GetInt32(reader.GetOrdinal("IDCompany"));
                 InnerJoin.NameCompany = reader.GetString(reader.GetOrdinal("NameCompany"));
                 InnerJoin.OwnerCompany = reader.GetString(reader.GetOrdinal("OwnerCompany"));
-                InnerJoin.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
                 InnerJoin.EmailCompany = reader.GetString(reader.GetOrdinal("EmailCompany"));
+                InnerJoin.PhoneCompany = reader.GetString(reader.GetOrdinal("PhoneCompany"));
+
 
 
                 InnerJoin.IDactivist = reader.GetInt32(reader.GetOrdinal("IDactivist"));

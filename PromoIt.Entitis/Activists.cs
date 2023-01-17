@@ -41,14 +41,14 @@ namespace PromoIt.Entitis
                 newActivist.phoneActivist = reader.GetString(reader.GetOrdinal("phoneActivist"));
 
                 //Cheking If Hashtable contains the key
-                if (hash.ContainsKey(newActivist.IDactivist))
+                if (hash.ContainsKey(newActivist.EmailActivist))
                 {
                     //key already exists
                 }
                 else
                 {
                     //Filling a hashtable
-                    hash.Add(newActivist.IDactivist, newActivist);
+                    hash.Add(newActivist.EmailActivist, newActivist);
                 }
             }
         }
